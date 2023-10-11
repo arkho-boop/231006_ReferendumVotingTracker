@@ -67,10 +67,10 @@ def read_eml(path: Path):
 import os
 
 # Get the user's home directory
-home_directory = os.path.expanduser("~")
+current_directory = os.getcwd()
 
 # Construct the full path to your file
-file_path = os.path.join(home_directory, "aec-mediafeed-Detailed-Verbose-29581-20230920135814/xml/aec-mediafeed-results-detailed-verbose-29581.xml")
+file_path = os.path.join(current_directory, "aec-mediafeed-Detailed-Verbose-29581-20230920135814/xml/aec-mediafeed-results-detailed-verbose-29581.xml")
 
 f = open(file_path, encoding='utf-8')
 text = f.read()
