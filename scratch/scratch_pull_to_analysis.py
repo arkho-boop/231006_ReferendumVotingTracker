@@ -63,7 +63,7 @@ def read_eml(path: Path):
         print(e)
         return None
 
-f = open(r"aec-mediafeed-Detailed-Verbose-29581-20230920135814\xml\aec-mediafeed-results-detailed-verbose-29581.xml", encoding='utf-8')
+f = open(r"~\aec-mediafeed-Detailed-Verbose-29581-20230920135814\xml\aec-mediafeed-results-detailed-verbose-29581.xml", encoding='utf-8')
 text = f.read()
 temp = xmltodict.parse(text)
 
