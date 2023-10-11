@@ -1,4 +1,5 @@
 from ftplib import FTP
+import os 
 
 # FTP server details
 ftp_host = 'mediafeedarchive.aec.gov.au'
@@ -63,7 +64,15 @@ def read_eml(path: Path):
         print(e)
         return None
 
-f = open(r"~\aec-mediafeed-Detailed-Verbose-29581-20230920135814\xml\aec-mediafeed-results-detailed-verbose-29581.xml", encoding='utf-8')
+import os
+
+# Get the user's home directory
+home_directory = os.path.expanduser("~")
+
+# Construct the full path to your file
+file_path = os.path.join(home_directory, "aec-mediafeed-Detailed-Verbose-29581-20230920135814/xml/aec-mediafeed-results-detailed-verbose-29581.xml")
+
+f = open(file_path, encoding='utf-8')
 text = f.read()
 temp = xmltodict.parse(text)
 
