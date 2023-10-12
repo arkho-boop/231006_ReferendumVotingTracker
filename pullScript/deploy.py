@@ -20,10 +20,10 @@ while True:
         # For example, print them
         if added_files:
             print("Added files:", added_files)
-            
+            for filename in added_files:
+                FtpPullFunctions.aec_ftp_pull(r'29581/Detailed/Verbose', filename, 'cache')
         if removed_files:
             print("Removed files:", removed_files)
-            FtpPullFunctions.aec_ftp_pull(r'')
     except Exception as e:
         # Handle exceptions, e.g., print an error message
         print("Error:", e)
