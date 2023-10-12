@@ -1,7 +1,6 @@
 from ftplib import FTP
 
-def aec_ftp_pull(remote_filepath, filename, local_directory):
-    # FTP server details
+def aec_ftp_pull(remote_filedir, filename, local_directory):
     ftp_host = 'mediafeedarchive.aec.gov.au'
     ftp_port = 21
     ftp_user = 'anonymous'
@@ -14,15 +13,26 @@ def aec_ftp_pull(remote_filepath, filename, local_directory):
     # Log in with your credentials
     ftp.login(ftp_user, ftp_password)
 
+    print('logged in')
+
     # Specify the remote file path (path on the FTP server)
-    remote_file_path = remote_filepath + '/' + filename  
+    remote_file_path = remote_filedir + '/' + filename  
+
+    print('remote_file_path: ' + remote_file_path)
 
     # Specify the local file path (including the directory where you want to save the file)
     local_file_path = local_directory + '/' + filename
 
+    print('local_file_path: ' + local_file_path)
+
+    # Change working directory
+    ftp.cwd(remote_filedir)
+
+    print('changed working directory to ' + remote_filedir)
+
     # Download the file from the FTP server to the specified local directory
     with open(local_file_path, 'wb') as local_file:
-        ftp.retrbinary('RETR ' + remote_filepath, local_file.write)
+        ftp.retrbinary('RETR ' + filename, local_file.write)
 
     # Close the FTP connection
     ftp.quit()
