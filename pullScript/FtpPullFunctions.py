@@ -28,11 +28,12 @@ def aec_ftp_pull(remote_filedir, filename, local_directory):
     # Change working directory
     ftp.cwd(remote_filedir)
 
-    print('changed working directory to ' + remote_filedir)
+    print('Changed working directory to ' + remote_filedir)
 
     # Download the file from the FTP server to the specified local directory
     with open(local_file_path, 'wb') as local_file:
         ftp.retrbinary('RETR ' + filename, local_file.write)
+    print('Downloaded :' + filename)
 
     # Close the FTP connection
     ftp.quit()
