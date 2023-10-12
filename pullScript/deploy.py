@@ -3,7 +3,7 @@ import FtpPullFunctions
 
 while True:
     try:
-        new_log = FtpPullFunctions.list_directory()
+        new_log = FtpPullFunctions.list_directory(r'29581/Detailed/Verbose')
 
         # Compare new_log and prior_log to find the difference
         added_files = [file for file in new_log if file not in prior_log]
