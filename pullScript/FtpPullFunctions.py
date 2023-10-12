@@ -39,7 +39,7 @@ def aec_ftp_pull(remote_filedir, filename, local_directory):
 
 def list_directory(remote_filepath):
     # FTP server details
-    ftp_host = 'mediafeedarchive.aec.gov.au'
+    ftp_host = 'mediafeed.aec.gov.au'
     ftp_port = 21
     ftp_user = 'anonymous'
     ftp_password = 's'
