@@ -1,6 +1,10 @@
 import time
 import FtpPullFunctions
 
+f = open('file_log.txt', 'r')
+prior_log = f.read()
+f.close()
+
 while True:
     try:
         new_log = FtpPullFunctions.list_directory(r'29581/Detailed/Verbose')
