@@ -1,0 +1,114 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(tidyverse)
+library(gridExtra)
+library(ggbeeswarm)
+
+df <- read.csv('filtered_master.csv')
+
+# Linear regress of 2PP
+
+print('2pp vs. Tertiary')
+twopp_t_ed_lm <- lm(ALP.margin ~ t_ed, data = df)
+summary(twopp_t_ed_lm)
+
+print('2pp vs. Age')
+twopp_age_lm <- lm(ALP.margin ~ age, data = df)
+summary(twopp_age_lm)
+
+print('2pp vs. Income')
+twopp_income_lm <- lm(ALP.margin ~ income, data = df)
+summary(twopp_income_lm)
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+# Linear regress of Yes
+
+print('Yes vs. Tertiary')
+Yes_t_ed_lm <- lm(Yes_lead_pts_so_far ~ t_ed, data = df)
+summary(Yes_t_ed_lm)
+
+print('Yes vs. Age')
+Yes_age_lm <- lm(Yes_lead_pts_so_far ~ age, data = df)
+summary(Yes_age_lm)
+
+print('Yes vs. Income')
+Yes_income_lm <- lm(Yes_lead_pts_so_far ~ income, data = df)
+summary(Yes_income_lm)
+
+```
+```{r}
+# And now for the swing
+print('Swing vs. Tertiary')
+Swing_t_ed_lm <- lm(Swing ~ t_ed, data = df)
+summary(Swing_t_ed_lm)
+
+print('Swing vs. Age')
+Swing_age_lm <- lm(Swing ~ age, data = df)
+summary(Swing_age_lm)
+
+print('Swing vs. Income')
+Swing_income_lm <- lm(Swing ~ income, data = df)
+summary(Swing_income_lm)
+
+```
+```{r}
+# Chart two lines
+
+grob_t_ed <- ggplot(data = df, aes(x = t_ed)) + 
+  theme_light() + 
+  geom_point(aes(y = ALP.margin, colour = '2022 2PP'), alpha = 0.4) + 
+  geom_smooth(aes(y = ALP.margin, colour = '2022 2PP'), method = 'lm') + 
+  geom_point(aes(y = Yes_lead_pts_so_far, colour = 'Referendum'), alpha = 0.4) + 
+  geom_smooth(aes(y = Yes_lead_pts_so_far, colour = 'Referendum'), method = 'lm') +
+  labs(title = '% Tertiary educated') +
+  theme(legend.position = 'bottom', legend.title = element_blank())
+grob_age <- ggplot(data = df, aes(x = age)) + 
+  theme_light() + 
+  geom_point(aes(y = ALP.margin, colour = '2022 2PP'), alpha = 0.4) + 
+  geom_smooth(aes(y = ALP.margin, colour = '2022 2PP'), method = 'lm') + 
+  geom_point(aes(y = Yes_lead_pts_so_far, colour = 'Referendum'), alpha = 0.4) + 
+  geom_smooth(aes(y = Yes_lead_pts_so_far, colour = 'Referendum'), method = 'lm') +
+  labs(title = 'Median Age') +
+  theme(legend.position = 'bottom', legend.title = element_blank())
+grob_income <- ggplot(data = df, aes(x = income)) + 
+  theme_light() + 
+  geom_point(aes(y = ALP.margin, colour = '2022 2PP'), alpha = 0.4) + 
+  geom_smooth(aes(y = ALP.margin, colour = '2022 2PP'), method = 'lm') + 
+  geom_point(aes(y = Yes_lead_pts_so_far, colour = 'Referendum'), alpha = 0.4) + 
+  geom_smooth(aes(y = Yes_lead_pts_so_far, colour = 'Referendum'), method = 'lm') +
+  labs(title = 'Median weekly income') +
+  theme(legend.position = 'bottom', legend.title = element_blank())
+
+grid.arrange(grob_t_ed, grob_age, grob_income, nrow = 1)
+```
+```{r}
+# by parties
+ggplot(df, aes(x = Swing, y = Party)) +
+  theme_light() +
+  geom_vline(xintercept = 0) + 
+  geom_beeswarm()
+```
+```{r}
+# Now for dem_rating
+
+ggplot(df, aes(x = Swing, y = dem_rating)) +
+  theme_light() +
+  geom_vline(xintercept = 0) + 
+  geom_beeswarm()
+```
