@@ -112,3 +112,7 @@ ggplot(df, aes(x = Swing, y = dem_rating)) +
   geom_vline(xintercept = 0) + 
   geom_beeswarm()
 ```
+```{r}
+
+```
+
