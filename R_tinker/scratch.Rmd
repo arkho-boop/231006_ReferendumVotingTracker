@@ -99,20 +99,47 @@ grid.arrange(grob_t_ed, grob_age, grob_income, nrow = 1)
 ```
 ```{r}
 # by parties
-ggplot(df, aes(x = Swing, y = Party)) +
+ggplot(df, aes(x = Yes_lead_pts_so_far, y = Party)) +
   theme_light() +
   geom_vline(xintercept = 0) + 
   geom_beeswarm()
 ```
+
 ```{r}
 # Now for dem_rating
 
-ggplot(df, aes(x = Swing, y = dem_rating)) +
+ggplot(df, aes(x = Yes_lead_pts_so_far, y = dem_rating)) +
   theme_light() +
   geom_vline(xintercept = 0) + 
   geom_beeswarm()
 ```
 ```{r}
+ggplot(df, aes(x = Yes_lead_pts_so_far, y = dem_rating)) +
+  theme_light() +
+  geom_vline(xintercept = 0) + 
+  geom_beeswarm() + 
+  theme(axis.title.y = element_blank()) + 
+  xlab('<-No   Yes->')
+```
 
+
+
+```{r}
+grob_indig <- ggplot(data = df, aes(x = indig)) + 
+  theme_light() + 
+  geom_point(aes(y = ALP.margin, colour = '2022 2PP'), alpha = 0.4) + 
+  geom_smooth(aes(y = ALP.margin, colour = '2022 2PP'), method = 'lm') + 
+  geom_point(aes(y = Yes_lead_pts_so_far, colour = 'Referendum'), alpha = 0.4) + 
+  geom_smooth(aes(y = Yes_lead_pts_so_far, colour = 'Referendum'), method = 'lm') +
+  labs(title = 'Indigenous') +
+  theme(legend.position = 'bottom', legend.title = element_blank()) + 
+  xlab('Share of seat indig') + 
+  ylab('Yes margin / 2022 Labor 2PP margin')
+
+grob_indig
+```
+
+```{r}
+grob_income
 ```
 
